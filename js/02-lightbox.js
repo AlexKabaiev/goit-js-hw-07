@@ -11,9 +11,8 @@ galleryPreview.innerHTML = galleryItems.reduce(
 </a>`,
   ""
 );
-galleryPreview.addEventListener("click", (e) => {
-  e.preventDefault();
-  if (e.target.nodeName !== "IMG") return;
-  let gallery = $(".gallery a").simpleLightbox();
-});
 
+ let gallery = new SimpleLightbox(".gallery a", {
+   captionDelay: 250,
+   captionsData: "alt",
+ });
