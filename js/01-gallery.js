@@ -1,4 +1,4 @@
-import { galleryItems } from './gallery-items.js';
+import { galleryItems } from "./gallery-items.js";
 const galleryPreview = document.querySelector(".gallery");
 galleryPreview.innerHTML = galleryItems.reduce(
   (html, current) =>
@@ -12,10 +12,32 @@ galleryPreview.innerHTML = galleryItems.reduce(
       alt="${current.description}"
     />
   </a>
-</div>`,"");
+</div>`,
+  ""
+);
 
 galleryPreview.addEventListener("click", (e) => {
-     e.preventDefault();
-    if (e.target.nodeName !== "IMG") return;
+  e.preventDefault();
 
+  if (e.target.nodeName !== "IMG") return;
+
+  const onCloseModal = (e) => {
+    const ESC_KEY = "Escape";
+    if (e.code === ESC_KEY) {
+      instance.close();
+    }
+  };
+
+  const instance = basicLightbox.create(
+    `<img src="${e.target.dataset.source}" width="800" height="600">`,
+    {
+      onShow: (instance) => {
+        window.addEventListener("keydown", onCloseModal);
+      },
+      onClose: (instance) => {
+        window.addEventListener("keydown", onCloseModal);
+      },
+    }
+  );
+  instance.show();
 });
